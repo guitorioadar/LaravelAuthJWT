@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
@@ -15,4 +15,16 @@ class Controller extends BaseController
     {
         auth()->setDefaultDriver('api');
     }
+
+    public function authUser(){
+        try {
+            $user = auth()->userOrFail();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            // do something
+            return response()->json(['error' => $e.getMessage()]);
+        }
+
+        return $user;
+    }
+
 }

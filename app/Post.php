@@ -11,6 +11,9 @@ class Post extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
+
+    protected $table = 'posts';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -57,4 +60,15 @@ class Post extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    /**
+     * A post is owned by a user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }
